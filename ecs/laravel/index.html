@@ -1,0 +1,886 @@
+
+
+
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="クリップボードへコピー">
+      
+        <meta name="lang:clipboard.copied" content="コピーしました">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="何も見つかりませんでした">
+      
+        <meta name="lang:search.result.one" content="1件見つかりました">
+      
+        <meta name="lang:search.result.other" content="#件見つかりました">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-　、。，．]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>LaravelをECSで動かす - AWS Handson</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="AWS Handson" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AWS Handson
+            </span>
+            <span class="md-header-nav__topic">
+              LaravelをECSで動かす
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            検索キーワードを入力してください
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="AWS Handson" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    AWS Handson
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Terraform
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Terraform
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../terraform/about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../terraform/command/" title="コマンドの用意" class="md-nav__link">
+      コマンドの用意
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../terraform/handson/" title="ハンズオン" class="md-nav__link">
+      ハンズオン
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      ECS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        ECS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../provisioning/" title="ハンズオンの環境構築" class="md-nav__link">
+      ハンズオンの環境構築
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker-compose/" title="docker-composeで動作確認をする" class="md-nav__link">
+      docker-composeで動作確認をする
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        LaravelをECSで動かす
+      </label>
+    
+    <a href="./" title="LaravelをECSで動かす" class="md-nav__link md-nav__link--active">
+      LaravelをECSで動かす
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="概要" class="md-nav__link">
+    概要
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ecrpush" title="ECRへpush" class="md-nav__link">
+    ECRへpush
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecr" title="新規ECRリポジトリ作成" class="md-nav__link">
+    新規ECRリポジトリ作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockerpush" title="Dockerのビルドとpush" class="md-nav__link">
+    Dockerのビルドとpush
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laravel" title="Laravel用の暗号化キーを生成・登録" class="md-nav__link">
+    Laravel用の暗号化キーを生成・登録
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ecs" title="ECSのコンテナ定義を更新" class="md-nav__link">
+    ECSのコンテナ定義を更新
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="環境変数の展開" class="md-nav__link">
+    環境変数の展開
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameterstore" title="ParameterStoreの値を環境変数へ展開" class="md-nav__link">
+    ParameterStoreの値を環境変数へ展開
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="デプロイ" class="md-nav__link">
+    デプロイ
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../aurora/" title="Auroraと連携" class="md-nav__link">
+      Auroraと連携
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Datadog
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Datadog
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../datadog/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../datadog/docker-compose/" title="docker-composeで起動" class="md-nav__link">
+      docker-composeで起動
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../datadog/ecs/" title="ECSとの連携" class="md-nav__link">
+      ECSとの連携
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../datadog/aws/" title="AWSとの連携" class="md-nav__link">
+      AWSとの連携
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../cleanup/" title="片付け" class="md-nav__link">
+      片付け
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="概要" class="md-nav__link">
+    概要
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ecrpush" title="ECRへpush" class="md-nav__link">
+    ECRへpush
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecr" title="新規ECRリポジトリ作成" class="md-nav__link">
+    新規ECRリポジトリ作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockerpush" title="Dockerのビルドとpush" class="md-nav__link">
+    Dockerのビルドとpush
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laravel" title="Laravel用の暗号化キーを生成・登録" class="md-nav__link">
+    Laravel用の暗号化キーを生成・登録
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ecs" title="ECSのコンテナ定義を更新" class="md-nav__link">
+    ECSのコンテナ定義を更新
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="環境変数の展開" class="md-nav__link">
+    環境変数の展開
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameterstore" title="ParameterStoreの値を環境変数へ展開" class="md-nav__link">
+    ParameterStoreの値を環境変数へ展開
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="デプロイ" class="md-nav__link">
+    デプロイ
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>LaravelをECSで動かす</h1>
+                
+                <h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>ECS上でLaravelを動かしてみましょう</p>
+<h2 id="ecrpush">ECRへpush<a class="headerlink" href="#ecrpush" title="Permanent link">&para;</a></h2>
+<h3 id="ecr">新規ECRリポジトリ作成<a class="headerlink" href="#ecr" title="Permanent link">&para;</a></h3>
+<p>GUIをポチポチするのがそろそろしんどくなってきたころだと思うので、AWS CLIで操作していきます。</p>
+<p><code>nginx</code> と <code>app</code> の2つのリポジトリを作成します。</p>
+<div class="codehilite"><pre><span></span>$ aws ecr create-repository --repository-name nginx
+$ aws ecr create-repository --repository-name app
+</pre></div>
+
+
+<p>作成されたかの確認</p>
+<div class="codehilite"><pre><span></span>$ aws ecr describe-repositories --query &#39;repositories[].repositoryName&#39;
+[
+    &quot;nginx&quot;,
+    &quot;handson-nginx&quot;,
+    &quot;app&quot;
+]
+$
+</pre></div>
+
+
+<h3 id="dockerpush">Dockerのビルドとpush<a class="headerlink" href="#dockerpush" title="Permanent link">&para;</a></h3>
+<p>ハンズオンリポジトリへチェックアウト (適宜)</p>
+<div class="codehilite"><pre><span></span>$ cd /path/to/2019-aws-handson
+</pre></div>
+
+
+<p>nginxのビルドとpush</p>
+<div class="codehilite"><pre><span></span>$ export ECR_URI_NGINX=$(aws ecr describe-repositories --repository-names nginx --query &#39;repositories[0].repositoryUri&#39; --output text)
+$ docker build -t ${ECR_URI_NGINX} -f docker/nginx/Dockerfile .
+$ docker push ${ECR_URI_NGINX}
+</pre></div>
+
+
+<p>Laravelのビルドとpush</p>
+<div class="codehilite"><pre><span></span>$ export ECR_URI_APP=$(aws ecr describe-repositories --repository-names app --query &#39;repositories[0].repositoryUri&#39; --output text)
+$ docker build -t ${ECR_URI_APP} .
+$ docker push ${ECR_URI_APP}
+</pre></div>
+
+
+<h2 id="laravel">Laravel用の暗号化キーを生成・登録<a class="headerlink" href="#laravel" title="Permanent link">&para;</a></h2>
+<p>Laravelでは起動時に暗号化キーが必要なので、その生成と登録を行います。  </p>
+<p>docker-composeからphpコマンドを叩き、暗号化キーを生成します。</p>
+<div class="codehilite"><pre><span></span>$ docker-compose run app php artisan key:generate --show
+base64:Qg1++xxxxxxxxxxxxxxxx=
+$ export LARAVEL_APP_KEY=base64:Qg1++xxxxxxxxxxxxxxxx=
+</pre></div>
+
+
+<p>DBの接続情報でも使用した "ParameterStore" へ暗号化キーを <code>handson/app/key</code> という命名で登録します。  </p>
+<div class="codehilite"><pre><span></span>$ aws ssm put-parameter --name &quot;/handson/app/key&quot; --value ${LARAVEL_APP_KEY} --type String
+{
+    &quot;Version&quot;: 1
+}
+</pre></div>
+
+
+<h2 id="ecs">ECSのコンテナ定義を更新<a class="headerlink" href="#ecs" title="Permanent link">&para;</a></h2>
+<p><code>terraform/container_definitions.json</code> をLaravel用に書き換えます。  </p>
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;${account_id}.dkr.ecr.${region}.amazonaws.com/nginx:${tag}&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;memory&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+        <span class="nt">&quot;portMappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;containerPort&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+                <span class="nt">&quot;hostPort&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+                <span class="nt">&quot;protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;tcp&quot;</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;logConfiguration&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;logDriver&quot;</span><span class="p">:</span> <span class="s2">&quot;awslogs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;awslogs-region&quot;</span><span class="p">:</span> <span class="s2">&quot;${region}&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;awslogs-group&quot;</span><span class="p">:</span> <span class="s2">&quot;/${name}/ecs&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;awslogs-stream-prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;nginx&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;${account_id}.dkr.ecr.${region}.amazonaws.com/app:${tag}&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;memory&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+        <span class="nt">&quot;logConfiguration&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;logDriver&quot;</span><span class="p">:</span> <span class="s2">&quot;awslogs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;awslogs-region&quot;</span><span class="p">:</span> <span class="s2">&quot;${region}&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;awslogs-group&quot;</span><span class="p">:</span> <span class="s2">&quot;/${name}/ecs&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;awslogs-stream-prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;secrets&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;APP_KEY&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;valueFrom&quot;</span><span class="p">:</span> <span class="s2">&quot;/handson/app/key&quot;</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;environment&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;APP_ENV&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;${app_env}&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LOG_CHANNEL&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;stderr&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<h3 id="_2">環境変数の展開<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><code>environment</code> で環境変数を起動したコンテナへ展開することが可能です。<br />
+今回は <code>LOG_CHANNEL</code> と <code>APP_ENV</code> を定義してみます。<br />
+<code>LOG_CHANNEL</code> は <code>stderr</code> でログを標準エラーへ出力することを決め打ちします。<br />
+<code>APP_ENV</code> は変数としてTerraformの呼び出し時に動的に与えます。</p>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;environment&quot;</span><span class="err">:</span> <span class="p">[</span>
+   <span class="p">{</span>
+     <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LOG_CHANNEL&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;stderr&quot;</span>
+   <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p><code>terraform/main.tf</code> で <code>${app_env}</code> で実際の値を定義します。<br />
+ここは実際の環境ではterraform側も変数化したほうが良いですが、今回はTerraformの入門ということでTerraform側は決め打ちしてしまいます。</p>
+<p><code>terraform/main.tf</code></p>
+<div class="codehilite"><pre><span></span>data &quot;template_file&quot; &quot;container_definitions&quot; {
+  template = &quot;${file(&quot;container_definitions.json&quot;)}&quot;
+
+  vars = {
+    tag = &quot;latest&quot;
+
+    account_id = &quot;${data.aws_caller_identity.self.account_id}&quot;
+    region     = &quot;${data.aws_region.current.name}&quot;
+    name       = &quot;${var.name}&quot;
+
+<span class="gi">+   app_env = &quot;production&quot;</span>
+  }
+}
+</pre></div>
+
+
+<h3 id="parameterstore">ParameterStoreの値を環境変数へ展開<a class="headerlink" href="#parameterstore" title="Permanent link">&para;</a></h3>
+<p>ECSではParameterStoreの値を直接呼び出すことが可能できます。<br />
+今回はその機能を使用して、ParameterStoreに登録した暗号化キーをECSで起動したコンテナの環境変数へ展開しています。</p>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;secrets&quot;</span><span class="err">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;APP_ENV&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;${app_env}&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;APP_KEY&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;valueFrom&quot;</span><span class="p">:</span> <span class="s2">&quot;/handson/app/key&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span><span class="err">,</span>
+</pre></div>
+
+
+<h2 id="_3">デプロイ<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>このハンズオンではTerraformでECSを管理しているため、terraformからデプロイを実行します。</p>
+<div class="codehilite"><pre><span></span>$ terraform apply
+</pre></div>
+
+
+<p>少し時間を置いてから出力されたDNSへアクセスしてみましょう。</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../docker-compose/" title="docker-composeで動作確認をする" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前
+                </span>
+                docker-composeで動作確認をする
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../aurora/" title="Auroraと連携" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  次
+                </span>
+                Auroraと連携
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/custom.js"></script>
+      
+    
+  </body>
+</html>

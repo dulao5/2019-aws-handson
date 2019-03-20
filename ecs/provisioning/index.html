@@ -1,0 +1,988 @@
+
+
+
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="クリップボードへコピー">
+      
+        <meta name="lang:clipboard.copied" content="コピーしました">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="何も見つかりませんでした">
+      
+        <meta name="lang:search.result.one" content="1件見つかりました">
+      
+        <meta name="lang:search.result.other" content="#件見つかりました">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-　、。，．]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>ハンズオンの環境構築 - AWS Handson</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="AWS Handson" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AWS Handson
+            </span>
+            <span class="md-header-nav__topic">
+              ハンズオンの環境構築
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            検索キーワードを入力してください
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="AWS Handson" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    AWS Handson
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Terraform
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Terraform
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../terraform/about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../terraform/command/" title="コマンドの用意" class="md-nav__link">
+      コマンドの用意
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../terraform/handson/" title="ハンズオン" class="md-nav__link">
+      ハンズオン
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      ECS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        ECS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ハンズオンの環境構築
+      </label>
+    
+    <a href="./" title="ハンズオンの環境構築" class="md-nav__link md-nav__link--active">
+      ハンズオンの環境構築
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="作成する環境" class="md-nav__link">
+    作成する環境
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="ハンズオン環境の構築" class="md-nav__link">
+    ハンズオン環境の構築
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameterstore" title="ParameterStore" class="md-nav__link">
+    ParameterStore
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="ユーザー名の登録" class="md-nav__link">
+    ユーザー名の登録
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="パスワードの登録" class="md-nav__link">
+    パスワードの登録
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="登録情報の確認" class="md-nav__link">
+    登録情報の確認
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone" title="ハンズオン用リポジトリのclone" class="md-nav__link">
+    ハンズオン用リポジトリのclone
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ecr" title="ECR" class="md-nav__link">
+    ECR
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registry" title="Registryの作成" class="md-nav__link">
+    Registryの作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-build" title="Docker Build" class="md-nav__link">
+    Docker Build
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecrdockerpush" title="ECRへDockerをpush" class="md-nav__link">
+    ECRへDockerをpush
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform" title="Terraformでプロビジョニング" class="md-nav__link">
+    Terraformでプロビジョニング
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terraform_1" title="Terraformの初期化" class="md-nav__link">
+    Terraformの初期化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="プロビジョニング" class="md-nav__link">
+    プロビジョニング
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="作成されるサービス・リソースのコンソールへのリンク" class="md-nav__link">
+    作成されるサービス・リソースのコンソールへのリンク
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="環境の確認" class="md-nav__link">
+    環境の確認
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker-compose/" title="docker-composeで動作確認をする" class="md-nav__link">
+      docker-composeで動作確認をする
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../laravel/" title="LaravelをECSで動かす" class="md-nav__link">
+      LaravelをECSで動かす
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../aurora/" title="Auroraと連携" class="md-nav__link">
+      Auroraと連携
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Datadog
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Datadog
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../datadog/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../datadog/docker-compose/" title="docker-composeで起動" class="md-nav__link">
+      docker-composeで起動
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../datadog/ecs/" title="ECSとの連携" class="md-nav__link">
+      ECSとの連携
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../datadog/aws/" title="AWSとの連携" class="md-nav__link">
+      AWSとの連携
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../cleanup/" title="片付け" class="md-nav__link">
+      片付け
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="作成する環境" class="md-nav__link">
+    作成する環境
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="ハンズオン環境の構築" class="md-nav__link">
+    ハンズオン環境の構築
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameterstore" title="ParameterStore" class="md-nav__link">
+    ParameterStore
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="ユーザー名の登録" class="md-nav__link">
+    ユーザー名の登録
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="パスワードの登録" class="md-nav__link">
+    パスワードの登録
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="登録情報の確認" class="md-nav__link">
+    登録情報の確認
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone" title="ハンズオン用リポジトリのclone" class="md-nav__link">
+    ハンズオン用リポジトリのclone
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ecr" title="ECR" class="md-nav__link">
+    ECR
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registry" title="Registryの作成" class="md-nav__link">
+    Registryの作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-build" title="Docker Build" class="md-nav__link">
+    Docker Build
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecrdockerpush" title="ECRへDockerをpush" class="md-nav__link">
+    ECRへDockerをpush
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform" title="Terraformでプロビジョニング" class="md-nav__link">
+    Terraformでプロビジョニング
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terraform_1" title="Terraformの初期化" class="md-nav__link">
+    Terraformの初期化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="プロビジョニング" class="md-nav__link">
+    プロビジョニング
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="作成されるサービス・リソースのコンソールへのリンク" class="md-nav__link">
+    作成されるサービス・リソースのコンソールへのリンク
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="環境の確認" class="md-nav__link">
+    環境の確認
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>ハンズオンの環境構築</h1>
+                
+                <h2 id="_1">作成する環境<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><img alt="aws" src="../../imgs/aws.png" /></p>
+<p>AZ・RouteTable・SecurityGroupなどは省略していますが、上記の環境を目標に構築していきます。</p>
+<h2 id="_2">ハンズオン環境の構築<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><img alt="aws" src="../imgs/aws.png" /></p>
+<p>基本的にTerraformで構築しますが、ParameterStoreとECRだけ手動で構築します。<br />
+ParameterStoreはDBのユーザー名/パスワードのデフォルト値を格納したいため、<br />
+ECRはTerraformのプロビジョニング時にECSを同時に動かしたいためです。</p>
+<h2 id="parameterstore">ParameterStore<a class="headerlink" href="#parameterstore" title="Permanent link">&para;</a></h2>
+<p>ParameterStoreはAWSのサービスの1つで、シークレット情報や設定情報を管理するためのサービスです。<br />
+このハンズオンでは <strong>"DBのユーザー名"</strong> と <strong>"DBのパスワード"</strong> をParameterStoreで管理します。  </p>
+<p>まずはWebコンソールへ接続してください。<br />
+<a href="https://ap-northeast-1.console.aws.amazon.com/systems-manager/parameters?region=ap-northeast-1">AWS Systems Manager - Parameter Store</a>
+<img alt="top" src="../imgs/ssm-top.png" /></p>
+<h3 id="_3">ユーザー名の登録<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>まずはユーザー名を登録します。<br />
+名前を <code>/handson/db/username</code> で登録し、値は任意の文字列を入力してください  (1 ~ 16文字の英数字を使用する必要があります)。<br />
+ここでは <code>myusername</code> とします。</p>
+<p><img alt="username" src="../imgs/ssm-username.png" /></p>
+<p><img alt="create" src="../imgs/ssm-create.png" /></p>
+<h3 id="_4">パスワードの登録<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>続いてパスワードを登録します。<br />
+名前を <code>/handson/db/password</code> で登録し、値は任意の文字列を入力してください (8文字以上の英数字を使用する必要があります)。
+ここでは <code>mypassword</code> とします。</p>
+<p><img alt="password" src="../imgs/ssm-password.png" /></p>
+<h2 id="_5">登録情報の確認<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>最後に <code>/handson/db/username</code> と <code>/handson/db/password</code> が登録していることを確認してParameterStoreの操作は完了です。  </p>
+<p><img alt="confirm" src="../imgs/ssm-confirm.png" /></p>
+<hr />
+<h2 id="clone">ハンズオン用リポジトリのclone<a class="headerlink" href="#clone" title="Permanent link">&para;</a></h2>
+<p>ローカルへハンズオン用リポジトリのcloneをします。</p>
+<div class="codehilite"><pre><span></span>$ git clone https://github.com/y-ohgi/2019-aws-handson.git
+$ cd 2019-aws-handson
+</pre></div>
+
+
+<h2 id="ecr">ECR<a class="headerlink" href="#ecr" title="Permanent link">&para;</a></h2>
+<h3 id="registry">Registryの作成<a class="headerlink" href="#registry" title="Permanent link">&para;</a></h3>
+<p>まずはECRへアクセスし、「Get Started」からDockerレジストリの作成を開始します。</p>
+<p><a href="https://ap-northeast-1.console.aws.amazon.com/ecr/get-started?region=ap-northeast-1">Amazon ECR</a>
+<img alt="top" src="../imgs/ecr-top.png" /></p>
+<p>レジストリ名を「 <code>handson-nginx</code> 」と入力します。  </p>
+<p><img alt="create" src="../imgs/ecr-create.png" /></p>
+<p>レジストリの作成が完了しました！<br />
+ここに表示されているURIはDocker Image をpushするときに必要なので控えておきます。</p>
+<p><img alt="confirm" src="../imgs/ecr-confirm.png" /></p>
+<h3 id="docker-build">Docker Build<a class="headerlink" href="#docker-build" title="Permanent link">&para;</a></h3>
+<p>DockerのBuildを実行します。<br />
+先程控えたURIを使用してECRへビルドしたDocker Image をpushします。</p>
+<div class="codehilite"><pre><span></span>$ export ECR_URI_HANDSON_NGINX=&lt;YOUR ECR REGISTRY URI&gt; # 先程控えたURIを環境変数へ展開します。
+$ docker build \
+    -t ${ECR_URI_HANDSON_NGINX} \
+    -f docker/handson-nginx/Dockerfile \
+    docker/handson-nginx
+</pre></div>
+
+
+<p>dockerを立ち上げてnginxが立ち上がるか確認してみましょう</p>
+<div class="codehilite"><pre><span></span>$ docker run -p 8080:80 ${ECR_URI_HANDSON_NGINX}
+</pre></div>
+
+
+<p><a href="http://localhost:8080">http://localhost:8080</a>
+<img alt="8080" src="../imgs/handson-docker-8080.png" /></p>
+<h3 id="ecrdockerpush">ECRへDockerをpush<a class="headerlink" href="#ecrdockerpush" title="Permanent link">&para;</a></h3>
+<p>AWSへログインし、ECRのアクセス情報を取得します。  </p>
+<p>アクセスキーは先ほど作成したterraformのものを流用しましょう。</p>
+<div class="codehilite"><pre><span></span>$ aws configure
+AWS Access Key ID [None]: &lt;YOUR ACCESS KEY&gt;
+AWS Secret Access Key [None]:  &lt;YOUR SECRET KEY&gt;
+Default region name [None]: ap-northeast-1
+Default output format [None]: json
+</pre></div>
+
+
+<p>ログイン後、dockerの認証情報を取得します。
+WARNINGと表示されますが、無視して問題ありません。  </p>
+<div class="codehilite"><pre><span></span>$ $(aws ecr get-login --no-include-email --region ap-northeast-1)
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Login Succeeded
+</pre></div>
+
+
+<p>最後に、作成したDocker Image をpushしてECRにアップロードされたことを確認します。</p>
+<div class="codehilite"><pre><span></span>$ docker push ${ECR_URI_HANDSON_NGINX}
+</pre></div>
+
+
+<p><a href="https://ap-northeast-1.console.aws.amazon.com/ecr/repositories/handson-nginx/?region=ap-northeast-1">https://ap-northeast-1.console.aws.amazon.com/ecr/repositories/handson-nginx/?region=ap-northeast-1</a>
+<img alt="ecr-handson-nginx.png" src="../imgs/ecr-handson-nginx.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">no basic auth credentials</p>
+<p><code>docker push</code> 後に"no basic auth credentials"と表示される場合、aws cliでログインしているアカウントが異なっています。<br />
+現在のdefault profile がどのアカウントのものになっているか確認してから <code>$</code> を行います</p>
+</div>
+<h2 id="terraform">Terraformでプロビジョニング<a class="headerlink" href="#terraform" title="Permanent link">&para;</a></h2>
+<p><img alt="aws" src="../imgs/aws.png" /></p>
+<p>実際に図のAWSの環境を構築していきます。</p>
+<h3 id="terraform_1">Terraformの初期化<a class="headerlink" href="#terraform_1" title="Permanent link">&para;</a></h3>
+<p>Terraform用ディレクトリにチェックアウトし、初期化を行います。</p>
+<div class="codehilite"><pre><span></span>$ cd terraform
+$ ls
+main.tf
+</pre></div>
+
+
+<p>Dockerからterraformを立ち上げます。</p>
+<div class="codehilite"><pre><span></span>$ docker run \
+    -e AWS_ACCESS_KEY_ID=&lt;AWS ACCESS KEY&gt; \
+    -e AWS_SECRET_ACCESS_KEY=&lt;AWS SECRET ACCESS KEY&gt; \
+    -v $(pwd):/templates \
+    -w /templates \
+    -it \
+    --entrypoint=ash \
+    hashicorp/terraform:0.11.12
+$ terraform init
+</pre></div>
+
+
+<h3 id="_6">プロビジョニング<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>どんなリソースが作成されるのか <code>plan</code> で確認し、 <code>apply</code> でプロビジョニングを実行します。</p>
+<div class="codehilite"><pre><span></span>$ terraform plan
+$ terraform apply
+</pre></div>
+
+
+<p>RDSのプロビジョニングに時間がかかるため、15分ほど待ちます。  </p>
+<h4 id="_7">作成されるサービス・リソースのコンソールへのリンク<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p><img alt="aws" src="../../imgs/aws.png" /></p>
+<p>今回使用するAWSサービスのコンソールへのリンクです。<br />
+Terraform実行中の場合まだ作成されていないリソースもあるかとおもいます。</p>
+<ul>
+<li>VPC<ul>
+<li>ネットワークを司るサービスです</li>
+<li><a href="https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1">https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1</a></li>
+</ul>
+</li>
+<li>ECS<ul>
+<li><a href="https://ap-northeast-1.console.aws.amazon.com/ecs/home?region=ap-northeast-1#/clusters">https://ap-northeast-1.console.aws.amazon.com/ecs/home?region=ap-northeast-1#/clusters</a></li>
+</ul>
+</li>
+<li>Parameter Store<ul>
+<li><a href="https://ap-northeast-1.console.aws.amazon.com/systems-manager/parameters?region=ap-northeast-1">https://ap-northeast-1.console.aws.amazon.com/systems-manager/parameters?region=ap-northeast-1</a></li>
+</ul>
+</li>
+<li>RDS<ul>
+<li><a href="https://ap-northeast-1.console.aws.amazon.com/rds/home?region=ap-northeast-1#">https://ap-northeast-1.console.aws.amazon.com/rds/home?region=ap-northeast-1#</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">環境の確認<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Terraformのプロビジョニングが完了するとDNSが表示されるのでアクセスして動作確認をしましょう。  </p>
+<p><img alt="outputs" src="../imgs/terraform-output-dns.png" />  </p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../terraform/handson/" title="ハンズオン" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前
+                </span>
+                ハンズオン
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../docker-compose/" title="docker-composeで動作確認をする" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  次
+                </span>
+                docker-composeで動作確認をする
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/custom.js"></script>
+      
+    
+  </body>
+</html>
