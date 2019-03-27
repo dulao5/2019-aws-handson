@@ -11,20 +11,20 @@
                 "protocol": "tcp"
             }
         ],
-        "mountPoints": [
+        "mountPoints": [{
             "sourceVolume": "logvolume",
             "containerPath": "/var/log/"
-        ]
+        }]
     },
     {
         "name": "app",
         "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/app:${tag}",
         "cpu": 0,
         "memory": 128,
-        "mountPoints": [
+        "mountPoints": [{
             "sourceVolume": "logvolume",
             "containerPath": "/var/log/"
-        ],
+        }],
         "secrets": [
             {
                 "name": "APP_KEY",
@@ -47,10 +47,10 @@
         "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/fluentd:${tag}",
         "cpu": 0,
         "memory": 256,
-        "mountPoints": [
+        "mountPoints": [{
             "sourceVolume": "logvolume",
             "containerPath": "/var/log/"
-        ],
+        }],
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
