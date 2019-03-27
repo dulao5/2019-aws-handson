@@ -11,28 +11,20 @@
                 "protocol": "tcp"
             }
         ],
-        "logConfiguration": {
-            "logDriver": "awslogs",
-            "options": {
-                "awslogs-region": "${region}",
-                "awslogs-group": "/${name}/ecs",
-                "awslogs-stream-prefix": "nginx"
-            }
-        }
+        "mountPoints": [
+            "sourceVolume": "logvolume",
+            "containerPath": "/var/log/"
+        ]
     },
     {
         "name": "app",
         "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/app:${tag}",
         "cpu": 0,
         "memory": 128,
-        "logConfiguration": {
-            "logDriver": "awslogs",
-            "options": {
-                "awslogs-region": "${region}",
-                "awslogs-group": "/${name}/ecs",
-                "awslogs-stream-prefix": "app"
-            }
-        },
+        "mountPoints": [
+            "sourceVolume": "logvolume",
+            "containerPath": "/var/log/"
+        ],
         "secrets": [
             {
                 "name": "APP_KEY",
@@ -49,6 +41,24 @@
                 "value": "stderr"
             }
         ]
+    },
+    {
+        "name": "fluentd",
+        "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/fluentd:${tag}",
+        "cpu": 0,
+        "memory": 256,
+        "mountPoints": [
+            "sourceVolume": "logvolume",
+            "containerPath": "/var/log/"
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-region": "${region}",
+                "awslogs-group": "/${name}/ecs",
+                "awslogs-stream-prefix": "datadog"
+            }
+        }
     },
   {
     "name": "datadog",

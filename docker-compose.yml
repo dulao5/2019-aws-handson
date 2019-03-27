@@ -7,6 +7,7 @@ services:
       dockerfile: docker/nginx/Dockerfile
     volumes:
       - ./public:/var/www/html/public:ro
+      - logvolume:/var/log
     ports:
       - 8001:80
     environment:
@@ -20,8 +21,15 @@ services:
       - DD_AGENT_HOST=datadog
     env_file:
       - .env.example
-    # volumes:
-    #   - .:/var/www/html:cached
+    volumes:
+        - logvolume:/var/log
+
+  fluentd:
+    build:
+      context: docker/fluentd
+      dockerfile: Dockerfile
+    volumes:
+        - logvolume:/var/log
 
   mysql:
     image: mysql:5.7
@@ -32,6 +40,8 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     ports:
       - 3306
+volumes:
+  logvolume:
 
   # datadog:
   #   image: datadog/agent:latest
