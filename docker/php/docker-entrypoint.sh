@@ -4,7 +4,7 @@ set -x \
     && chmod 775 /var/log/php \
     && chmod g+s /var/log/php \
     && chown www:appgroup /var/log/php \
-    && touch /var/log/php/error.log /var/log/php/access.log \
+    && mkfifo /var/log/php/error.log /var/log/php/access.log \
     && chown www:appgroup /var/log/php/error.log /var/log/php/access.log \
     && chmod g+r /var/log/php/error.log /var/log/php/access.log
 

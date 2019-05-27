@@ -15,7 +15,8 @@ RUN apk --update add tzdata && \
 # install plugins
 RUN sudo fluent-gem install \
     fluent-plugin-kinesis \
-    fluent-plugin-rewrite-tag-filter
+    fluent-plugin-rewrite-tag-filter \
+    fluent-plugin-named_pipe
 
 # garbage delete
 RUN sudo gem sources --clear-all \
