@@ -25,6 +25,10 @@ resource "aws_ecs_task_definition" "this" {
 
   task_role_arn      = "${aws_iam_role.task_execution.arn}"
   execution_role_arn = "${aws_iam_role.task_execution.arn}"
+
+  volume {
+    name = "logvolume"
+  }
 }
 
 resource "aws_iam_role" "task_execution" {

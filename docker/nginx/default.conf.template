@@ -1,3 +1,16 @@
+log_format ltsv 'time:$time_local\t'
+        'remote_addr:$remote_addr\t'
+        'x-forwarded-for:$http_x_forwarded_for\t'
+        'user_agent:$http_user_agent\t'
+        'server_ip:$server_addr\t'
+        'method:$request_method\t'
+        'path:$request_uri\t'
+        'query:$query_string\t'
+        'referrer:$http_referer\t'
+        'status:$status\t'
+        'taken_time:$request_time\t';
+
+
 server {
     listen 80;
 
@@ -24,4 +37,7 @@ server {
         fastcgi_param           REQUEST_FILENAME $request_filename;
         include                 fastcgi_params;
     }
+
+    error_log /var/log/nginx/site_error.log warn;
+    access_log /var/log/nginx/site_access.log ltsv;
 }

@@ -1,7 +1,7 @@
 [
     {
         "name": "nginx",
-        "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/handson-nginx:${tag}",
+        "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/nginx:${tag}",
         "cpu": 0,
         "memory": 128,
         "portMappings": [
@@ -11,13 +11,87 @@
                 "protocol": "tcp"
             }
         ],
+        "mountPoints": [{
+            "sourceVolume": "logvolume",
+            "containerPath": "/var/log/"
+        }]
+    },
+    {
+        "name": "app",
+        "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/app:${tag}",
+        "cpu": 0,
+        "memory": 128,
+        "mountPoints": [{
+            "sourceVolume": "logvolume",
+            "containerPath": "/var/log/"
+        }],
+        "secrets": [
+            {
+                "name": "APP_KEY",
+                "valueFrom": "/handson/app/key"
+            }
+        ],
+        "environment": [
+            {
+                "name": "APP_ENV",
+                "value": "${app_env}"
+            },
+            {
+                "name": "LOG_CHANNEL",
+                "value": "stderr"
+            }
+        ]
+    },
+    {
+        "name": "fluentd",
+        "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/fluentd:${tag}",
+        "cpu": 0,
+        "memory": 256,
+        "mountPoints": [{
+            "sourceVolume": "logvolume",
+            "containerPath": "/var/log/"
+        }],
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
                 "awslogs-region": "${region}",
                 "awslogs-group": "/${name}/ecs",
-                "awslogs-stream-prefix": "api"
+                "awslogs-stream-prefix": "datadog"
             }
         }
-    }
+    },
+  {
+    "name": "datadog",
+    "image": "datadog/agent",
+    "cpu": 10,
+    "memory": 256,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "${region}",
+        "awslogs-group": "/${name}/ecs",
+        "awslogs-stream-prefix": "datadog"
+      }
+    },
+    "secrets": [
+      {
+        "name": "DD_API_KEY",
+        "valueFrom": "/handson/datadog/key"
+      }
+    ],
+    "environment": [
+      {
+        "name": "DD_APM_ENABLED",
+        "value": "true"
+      },
+      {
+        "name": "ECS_FARGATE",
+        "Value": "true"
+      },
+      {
+        "name": "DD_TAGS",
+        "value": "env:${app_env}"
+      }
+    ]
+  }
 ]
